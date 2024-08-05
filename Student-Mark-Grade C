@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+// Function prototypes
+void inputMarks(int n, int marks[]);
+void assignGrades(int n, int marks[], char grades[]);
+float calculateMeanMarks(int n, int marks[]);
+char determineMeanGrade(float mean_marks);
+void printTranscript(int n, int marks[], char grades[], float mean_marks, char mean_grade);
+
+void inputMarks(int n, int marks[]) {
+    for (int i = 0; i < n; i++) {
+        printf("Enter marks for student %d: ", i + 1);
+        scanf("%d", &marks[i]);
+    }
+}
+
+void assignGrades(int n, int marks[], char grades[]) {
+    for (int i = 0; i < n; i++) {
+        if (marks[i] >= 90) {
+            grades[i] = 'A';
+        } else if (marks[i] >= 80) {
+            grades[i] = 'B';
+        } else if (marks[i] >= 70) {
+            grades[i] = 'C';
+        } else if (marks[i] >= 60) {
+            grades[i] = 'D';
+        } else {
+            grades[i] = 'F';
+        }
+    }
+}
+
+float calculateMeanMarks(int n, int marks[]) {
+    float sum_marks = 0.0;
+    for (int i = 0; i < n; i++) {
+        sum_marks += marks[i];
+    }
+    return sum_marks / n;
+}
+
+char determineMeanGrade(float mean_marks) {
+    if (mean_marks >= 90) {
+        return 'A';
+    } else if (mean_marks >= 80) {
+        return 'B';
+    } else if (mean_marks >= 70) {
+        return 'C';
+    } else if (mean_marks >= 60) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}
+
+void printTranscript(int n, int marks[], char grades[], float mean_marks, char mean_grade) {
+    printf("\nTranscript:\n");
+    printf("---------------------------------------------------\n");
+    printf("Student\t\tMarks\t\tGrade\n");
+    printf("---------------------------------------------------\n");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t\t%d\t\t%c\n", i + 1, marks[i], grades[i]);
+    }
+    printf("---------------------------------------------------\n");
+    printf("Mean Marks: %.2f\n", mean_marks);
+    printf("Mean Grade: %c\n", mean_grade);
+}
+
+int main() {
+    int n;
+    printf("Enter the number of students: ");
+    scanf("%d", &n);
+
+    int marks[n];
+    char grades[n];
+
+    inputMarks(n, marks);
+    assignGrades(n, marks, grades);
+
+    float mean_marks = calculateMeanMarks(n, marks);
+    char mean_grade = determineMeanGrade(mean_marks);
+
+    printTranscript(n, marks, grades, mean_marks, mean_grade);
+
+    return 0;
+}
